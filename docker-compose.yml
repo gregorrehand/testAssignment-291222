@@ -1,0 +1,48 @@
+version: "3.6"
+services:
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      POSTGRES_PASSWORD: changeit
+      POSTGRES_USER: postgres
+      POSTGRES_DB: testdb
+    ports:
+      #- 5433:5432
+      - target: 5432
+        published: 5433
+        protocol: tcp
+        mode: host
+    networks:
+      - backdb
+    expose:
+      - 5433
+
+  back:
+    build: ./backend
+    image: backend
+    container_name: backend
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    networks:
+      - frontback
+      - backdb
+
+  front:
+    build: ./frontend
+    image: frontend
+    container_name: frontend
+    ports:
+      - 8090:8090
+    depends_on:
+      - back
+    networks:
+      - frontback
+
+networks:
+  backdb:
+    driver: bridge
+  frontback:
+    driver: bridge
