@@ -1,7 +1,6 @@
 package com.example.backend.service;
 
 import com.example.backend.model.Reply;
-import com.example.backend.model.Sector;
 import com.example.backend.repository.ReplyRepository;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
