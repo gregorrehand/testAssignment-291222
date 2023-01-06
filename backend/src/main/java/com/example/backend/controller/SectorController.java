@@ -10,32 +10,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins =  "http://localhost:8090", allowCredentials = "true")
+@RequestMapping("/sectors")
 public class SectorController {
 
     @Autowired private SectorService sectorService;
 
-    @GetMapping("/sectors")
+    @GetMapping()
     public List<Sector> getSectors()
     {
         return sectorService.getAll();
     }
 
-    @PostMapping("/sectors")
+    @PostMapping()
     public Sector saveSector(
             @Valid @RequestBody Sector sector)
     {
-
         return sectorService.save(sector);
     }
 
-    @PutMapping("/sectors/{id}")
+    @PutMapping("/{id}")
     public Sector updateSector(@RequestBody Sector sector,
                      @PathVariable("id") UUID sectorId)
     {
         return sectorService.update(sector, sectorId);
     }
-    @DeleteMapping("/sectors/{id}")
+    @DeleteMapping("/{id}")
     public String deleteSector(@PathVariable("id")
                                        UUID sectorId)
     {

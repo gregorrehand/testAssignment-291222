@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.model.Reply;
+import com.example.backend.model.Sector;
 import com.example.backend.repository.ReplyRepository;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,10 @@ public class ReplyService {
 
     public List<Reply> getAll() {
         return (List<Reply>) replyRepository.findAll();
+    }
+
+    public Reply getById(UUID id) {
+        return replyRepository.findById(id).orElse(null);
     }
     public Reply save(Reply reply) {
         return replyRepository.save(reply);
